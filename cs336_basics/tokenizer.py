@@ -30,12 +30,16 @@ class Tokenizer:
     def setpattern(self,pat):
         self.pat=pat
 
-    def reset(self):
+    def reset(self,param=True):
         self.vocab={}
         self.merges=[]
         self.inverse_vocab={}
         self.bpe_ranks={}
         self.special_token_ids={}
+        if(param):
+            self.special_tokens=[b"<|endoftext|>"]
+            self.pat=r"""'(?:[sdmt]|ll|ve|re)| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+"""
+            self.vocabsize=10000
 
     #save all states in the self to the disk,remember the bytes can't direct for json
     def save(self,path:str):
